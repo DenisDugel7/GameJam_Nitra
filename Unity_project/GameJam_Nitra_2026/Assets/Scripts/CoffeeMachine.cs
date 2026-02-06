@@ -8,7 +8,6 @@ public class CoffeeMachine : MonoBehaviour
     public bool hasCoin = false;
     public bool trigger = false;
     bool slowed = false;
-
     void Start()
     {
         player = Player.GetComponent<PlayerMovement>();
@@ -22,16 +21,17 @@ public class CoffeeMachine : MonoBehaviour
             interacts_text.text = "Press E to buy a coffee";
             if (Input.GetKeyDown(KeyCode.E))
             {
+                AudioSource audiosrc = GetComponent<AudioSource>();
+                audiosrc.Play();
                 player.currentSpeed /= 2;
                 slowed = true;
             }
         }
         else {
-            if (!GameObject.Find("Terms_and_conditions").GetComponent<TAC>().trigger) {
                 GameObject interacts = GameObject.Find("Interacts");
                 TextMeshProUGUI interacts_text = interacts.GetComponent<TextMeshProUGUI>();
                 interacts_text.text = " ";
-            }
+
 
         }
     }

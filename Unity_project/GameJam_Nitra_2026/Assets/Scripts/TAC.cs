@@ -7,24 +7,32 @@ using UnityEngine.SceneManagement;
 public class TAC : MonoBehaviour
 {
     public bool trigger = false;
+    bool fail = false;
+
     public void Update()
     {
+        AudioSource audiosrc = GetComponent<AudioSource>();
+
+        if (!audiosrc.isPlaying && fail) SceneManager.LoadScene("Level 1");
+
         if (trigger)
         {
              
                 GameObject interacts = GameObject.Find("Interacts");
                 TextMeshProUGUI interacts_text = interacts.GetComponent<TextMeshProUGUI>();
                 interacts_text.text = "Press E to sign Terms and Conditions";
-            
-            if (Input.GetKey(KeyCode.E)) SceneManager.LoadScene("Level 1");
+
+            if (Input.GetKey(KeyCode.E)) {
+                audiosrc.Play();
+                fail = true;
+            }
 
         }
         else {
-            if (!GameObject.Find("Coffee_machine").GetComponent<CoffeeMachine>().trigger) {
                 GameObject interacts = GameObject.Find("Interacts");
                 TextMeshProUGUI interacts_text = interacts.GetComponent<TextMeshProUGUI>();
                 interacts_text.text = " ";    
-            }
+            
         }
     }
 
